@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10sp"
+    android:orientation="vertical"
+    tools:context=".HistoryActivity">
+    <TextView
+        android:id="@+id/tasbeeh_name"
+        android:layout_width="match_parent"
+        android:textSize="28sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="@string/tasbeeh_name"/>
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+
+        android:layout_height="wrap_content">
+        <TextView
+            android:background="@drawable/border_right"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:paddingEnd="10sp"
+            android:text="@string/date"
+            tools:ignore="NestedWeights,RtlSymmetry" />
+        <TextView
+            android:background="@drawable/border_right"
+            android:textColor="@color/black"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:textSize="24sp"
+            android:paddingEnd="10sp"
+            android:text="@string/recite"
+            tools:ignore="RtlSymmetry" />
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/counter" />
+    </LinearLayout>
+    <!-- Horizontal line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="6sp"
+        android:layout_height="2sp"
+        android:background="#000000"
+        tools:ignore="SmallSp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="8"
+        android:id="@+id/outputView"
+        android:layout_width="match_parent"
+        android:layout_height="0sp" />
+</LinearLayout>

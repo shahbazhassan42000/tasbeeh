@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recordOutputView"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/dateOutput"
+        android:background="@drawable/border_right"
+        android:layout_width="0sp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:paddingEnd="10sp"
+        android:text="@string/date"
+        tools:ignore="NestedWeights,RtlSymmetry" />
+    <TextView
+        android:id="@+id/reciteOutput"
+        android:background="@drawable/border_right"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:textSize="24sp"
+        android:paddingEnd="10sp"
+        android:text="@string/recite"
+        tools:ignore="RtlSymmetry" />
+    <TextView
+        android:id="@+id/counterOutput"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="@string/counter" />
+
+
+</LinearLayout>

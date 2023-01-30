@@ -11,4 +11,5 @@
     <string name="enter_tasbeeh_name">Enter Tasbeeh Name</string>
     <string name="error_msg">This field is required!</string>
     <string name="cancel">CANCEL</string>
+    <string name="date">Date</string>
 </resources>
