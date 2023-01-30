@@ -4,4 +4,7 @@
     <string name="tasbeeh_name">Tasbeeh Name</string>
     <string name="recite">Recite</string>
     <string name="counter">Counter</string>
+    <string name="save">SAVE</string>
+    <string name="add">ADD</string>
+    <string name="view">VIEW</string>
 </resources>

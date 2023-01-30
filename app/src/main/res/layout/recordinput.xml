@@ -10,6 +10,7 @@
         android:background="@drawable/border_right"
         android:id="@+id/nameInput"
         android:layout_width="0sp"
+        android:textColor="@color/black"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10sp"
-        android:weightSum="10"
-        android:orientation="vertical">
+    tools:context=".MainActivity"
+    android:padding="9sp"
+    android:orientation="vertical"
+    >
         <LinearLayout
             android:layout_width="match_parent"
             android:gravity="center_vertical"
-            android:layout_weight="1"
+
             android:layout_height="wrap_content">
             <TextView
                 android:background="@drawable/border_right"
@@ -26,7 +22,7 @@
                 android:textSize="24sp"
                 android:paddingEnd="10sp"
                 android:text="@string/tasbeeh_name"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="NestedWeights,RtlSymmetry" />
             <TextView
                 android:background="@drawable/border_right"
                 android:textColor="@color/black"
@@ -48,7 +44,7 @@
             android:layout_weight="8"
             android:id="@+id/inputView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0sp" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,21 +54,20 @@
                 android:id="@+id/saveBtn"
                 android:layout_width="80sp"
                 android:layout_height="wrap_content"
-                android:text="SAVE"
-                />
-            <Button
-                android:id="@+id/viewBtn"
-                android:layout_width="80sp"
-                android:layout_height="wrap_content"
-                android:text="VIEW"
-                />
+                android:text="@string/save"
+                tools:ignore="ButtonStyle" />
             <Button
                 android:id="@+id/addBtn"
                 android:layout_width="80sp"
                 android:layout_height="wrap_content"
-                android:text="ADD"
-                />
+                android:text="@string/add"
+                tools:ignore="ButtonStyle" />
+            <Button
+                android:id="@+id/viewBtn"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:text="@string/view"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
-    </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
