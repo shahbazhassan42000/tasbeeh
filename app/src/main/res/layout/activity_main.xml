@@ -9,12 +9,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10sp"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tasbeeh_counter"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0sp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:paddingEnd="10sp"
+                android:text="@string/tasbeeh_name"
+                tools:ignore="RtlSymmetry" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="@string/recite" />
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="Counter" />
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/inputView"
             android:layout_width="match_parent"

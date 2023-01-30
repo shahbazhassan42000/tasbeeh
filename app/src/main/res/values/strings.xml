@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Tasbeeh</string>
     <string name="tasbeeh_counter">Tasbeeh Counter</string>
+    <string name="tasbeeh_name">Tasbeeh Name</string>
+    <string name="recite">Recite</string>
 </resources>
