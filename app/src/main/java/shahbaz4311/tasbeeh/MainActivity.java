@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         tasbeehNames.add("abc");
         tasbeehNames.add("def");
         tasbeehNames.add("ghi");
-        tasbeehNames.add("abcdefghijklmnopqrstuvwxyz");
+        tasbeehNames.add("a");
 
         inputView=findViewById(R.id.inputView);
         layoutManager=new LinearLayoutManager(MainActivity.this);
