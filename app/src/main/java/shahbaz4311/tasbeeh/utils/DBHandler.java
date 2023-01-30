@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "tasbeehcounter.db";
+    private static final String DATABASE_NAME = "tasbeeh.db";
     private static final String TABLE_NAME = "tasbeeh";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
@@ -65,7 +65,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public List<Record> getAllRecords() {
         List<Record> records = new ArrayList<>();
         String sql = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -125,5 +125,24 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public List<String> getAllTasbeehNames() {
+        List<String> tasbeehNames = new ArrayList<>();
+        String sql = "SELECT distinct "+COLUMN_NAME+" FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                tasbeehNames.add(name);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return tasbeehNames;
+
+
     }
 }

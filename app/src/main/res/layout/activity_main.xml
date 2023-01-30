@@ -40,6 +40,14 @@
                 android:textSize="24sp"
                 android:text="@string/counter" />
         </LinearLayout>
+    <!-- Horizontal line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="6sp"
+        android:layout_height="2sp"
+        android:background="#000000"
+        tools:ignore="SmallSp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_weight="8"
             android:id="@+id/inputView"
