@@ -29,13 +29,11 @@ public class MyCustomDialog extends DialogFragment {
         TextView title = new TextView(getActivity());
         title.setText(R.string.add_tasbeeh);
         title.setTextSize(30);
-        title.setGravity(Gravity.START);
         title.setPadding(60, 60, 65, 20);
         //setting title icon
         Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.add_icon);
         icon.setBounds(0, 0, 100, 100);
-        title.setCompoundDrawables(null, null, icon, null);
-        title.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+        title.setCompoundDrawables(icon, null,null, null);
         title.setCompoundDrawablePadding(20);
         //setting the title for the dialog box
         builder.setCustomTitle(title);

@@ -18,9 +18,6 @@
         android:hint="@string/enter_tasbeeh_name"
         android:padding="25sp"
         android:textSize="28sp"
-        android:textColor="@color/white"
-        android:textDirection="rtl"
-        android:textCursorDrawable="@null"
 
         />
 </com.google.android.material.textfield.TextInputLayout>
