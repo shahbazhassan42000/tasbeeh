@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,10 +65,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.saveBtn:
+                if(records.size()==0){
+                    Toast.makeText(MainActivity.this,"No tasbeeh to save", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 saveRecords();
                 break;
             case R.id.addBtn:
@@ -89,13 +94,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewBtn.setEnabled(false);
 
         //saving records
-        for(Record record:records){
-            if(record.getId()==-1){
+        for(int i=0;i<records.size();i++){
+            if(records.get(i).getId()==-1){
                 //adding new tasbeeh
-//                dbHandler.addTasbeeh(record);
+                int id=dbHandler.insertRecord(records.get(i));
+                records.get(i).setId(id);
+                if(id==-1){
+                    //toast error while saving tasbeeh
+                    Toast.makeText(MainActivity.this,"Error while saving tasbeeh: "+records.get(i).getName(), Toast.LENGTH_SHORT).show();
+                }
             }else{
                 //updating tasbeeh
-//                dbHandler.updateTasbeeh(record);
+                dbHandler.updateRecord(records.get(i));
             }
         }
 

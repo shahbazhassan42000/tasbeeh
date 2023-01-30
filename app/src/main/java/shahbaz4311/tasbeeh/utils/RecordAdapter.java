@@ -61,6 +61,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordVH> 
             reciteInput.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 countInput.setEnabled(isChecked);
                 record.setRecited(isChecked);
+                if(!isChecked){
+                    record.setCount(0);
+                    countInput.setText("0");
+                }
             });
 
             //setting text changed listener on countInput to update count

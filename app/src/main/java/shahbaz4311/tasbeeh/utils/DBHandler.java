@@ -1,11 +1,15 @@
 package shahbaz4311.tasbeeh.utils;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,11 +50,13 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public void insertRecord(Record record) {
-        //Update the record if it already exists
-        if (doesExist(record)) {
+    public int insertRecord(Record record) {
+//        //Update the record if it already exists
+        int recordId=doesExist(record);
+        if (recordId!=-1) {
+            record.setId(recordId);
             updateRecord(record);
-            return;
+            return recordId;
         }
         //if the record doesn't already exist insert it.
         SQLiteDatabase db = this.getWritableDatabase();
@@ -60,8 +66,9 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_RECITED, record.getRecited());
         values.put(COLUMN_COUNT, record.getCount());
 
-        db.insert(TABLE_NAME, null, values);
+        int id= (int) db.insert(TABLE_NAME, null, values);
         db.close();
+        return id;
     }
 
     public List<Record> getAllRecords() {
@@ -86,29 +93,31 @@ public class DBHandler extends SQLiteOpenHelper {
         return records;
     }
 
-    public boolean doesExist(Record record) {
-        String sql = "SELECT * FROM " + TABLE_NAME + " where " + COLUMN_DATE + " = " +
-                record.getDate() + " and " + COLUMN_NAME + " = " + record.getName();
-        SQLiteDatabase db = this.getWritableDatabase();
+    @SuppressLint("Range")
+    public int doesExist(Record record) {
+        String sql = "SELECT * FROM " + TABLE_NAME + " where " + COLUMN_DATE + " = '" +
+                record.getDate() + "' and " + COLUMN_NAME + " = '" + record.getName()+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
-        boolean result = false;
+        int id = -1;
         if (cursor.moveToFirst()) {
-            result = true;
+            id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
         }
         cursor.close();
         db.close();
-        return result;
+        return id;
 
     }
 
-    public void updateRecord(Record record) {
+    public boolean updateRecord(Record record) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_RECITED, record.getRecited());
         values.put(COLUMN_COUNT, record.getCount());
 
-        db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(record.getId())});
+        int rowsAffected=db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(record.getId())});
         db.close();
+        return rowsAffected>0;
     }
 
     /*
@@ -123,7 +132,7 @@ public class DBHandler extends SQLiteOpenHelper {
     /*
      * Deletes all the record with specific Id
      * */
-    public void delteRecord(int id) {
+    public void deleteRecord(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
