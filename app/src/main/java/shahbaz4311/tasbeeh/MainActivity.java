@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -81,10 +83,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 customDialog();
                 break;
             case R.id.viewBtn:
-                //viewing data
+                loadViewActivity();
                 break;
         }
 
+    }
+
+    private void loadViewActivity() {
+        //creating arraylist of tasbeeh names
+        ArrayList<String> tasbeehNames=new ArrayList<>();
+        for(int i=0;i<records.size();i++){
+            tasbeehNames.add(records.get(i).getName());
+        }
+        //creating intent to load view activity
+        Intent intent=new Intent(MainActivity.this,ViewActivity.class);
+        intent.putStringArrayListExtra("tasbeehNames",tasbeehNames);
+        startActivity(intent);
     }
 
     private void saveRecords() {
@@ -95,17 +109,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //saving records
         for(int i=0;i<records.size();i++){
-            if(records.get(i).getId()==-1){
-                //adding new tasbeeh
-                int id=dbHandler.insertRecord(records.get(i));
-                records.get(i).setId(id);
-                if(id==-1){
-                    //toast error while saving tasbeeh
-                    Toast.makeText(MainActivity.this,"Error while saving tasbeeh: "+records.get(i).getName(), Toast.LENGTH_SHORT).show();
-                }
-            }else{
-                //updating tasbeeh
-                dbHandler.updateRecord(records.get(i));
+            //adding new tasbeeh
+            int id=dbHandler.insertRecord(records.get(i));
+            records.get(i).setId(id);
+            if(id==-1){
+                //toast error while saving tasbeeh
+                Toast.makeText(MainActivity.this,"Error while saving tasbeeh: "+records.get(i).getName(), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -122,9 +131,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setTitle(R.string.add_tasbeeh);
         builder.setIcon(R.drawable.add_icon);
         builder.setCancelable(false);
-        View view=builder.create().getLayoutInflater().inflate(R.layout.tasbeeh_name,null);
-        builder.setView(view);
-        tasbeehName=view.findViewById(R.id.tasbeeh_name_input);
+        tasbeehName=new EditText(this);
+        tasbeehName.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+        tasbeehName.setHint(R.string.tasbeeh_name);
+        tasbeehName.setPadding(50,50,50,50);
+        tasbeehName.setTextSize(28);
+        builder.setView(tasbeehName);
         builder.setPositiveButton(R.string.add, (dialog, which) -> {
             //adding tasbeeh to arraylist if not empty
             if(!tasbeehName.getText().toString().trim().isEmpty()){
