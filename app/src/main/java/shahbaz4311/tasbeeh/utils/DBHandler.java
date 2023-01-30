@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -127,8 +129,9 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<String> getAllTasbeehNames() {
-        List<String> tasbeehNames = new ArrayList<>();
+    @SuppressLint("SimpleDateFormat")
+    public List<Record> getAllTasbeehNames() {
+        List<Record> tasbeehNames = new ArrayList<>();
         String sql = "SELECT distinct "+COLUMN_NAME+" FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -136,7 +139,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                tasbeehNames.add(name);
+                tasbeehNames.add(new Record(name, false, 0, new SimpleDateFormat("MMMM dd, yyyy").format(new Date())));
             } while (cursor.moveToNext());
         }
         cursor.close();

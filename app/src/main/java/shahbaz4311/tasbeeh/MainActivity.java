@@ -7,25 +7,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import shahbaz4311.tasbeeh.utils.DBHandler;
-import shahbaz4311.tasbeeh.utils.MyCustomDialog;
+import shahbaz4311.tasbeeh.utils.Record;
 import shahbaz4311.tasbeeh.utils.RecordAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     RecyclerView inputView;
-    List<String> tasbeehNames;
+    List<Record> records;
     EditText tasbeehName;
-    RecyclerView.Adapter recordAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    RecordAdapter recordAdapter;
 
     Button saveBtn,addBtn,viewBtn;
     DBHandler dbHandler;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dbHandler=new DBHandler(MainActivity.this);
 
         //initializing
-        tasbeehNames=new ArrayList<>();
+        records=new ArrayList<>();
         saveBtn=findViewById(R.id.saveBtn);
         addBtn=findViewById(R.id.addBtn);
         viewBtn=findViewById(R.id.viewBtn);
@@ -49,14 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //getting tasbeeh names from db
-        tasbeehNames=dbHandler.getAllTasbeehNames();
+        records=dbHandler.getAllTasbeehNames();
         inputView=findViewById(R.id.inputView);
-        layoutManager=new LinearLayoutManager(MainActivity.this);
         inputView.setHasFixedSize(true);
-        inputView.setLayoutManager(layoutManager);
+        inputView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
 
-        recordAdapter=new RecordAdapter(tasbeehNames);
+        recordAdapter=new RecordAdapter(records);
         recordAdapter.notifyDataSetChanged();
 
         //setting inputRecycleView adapter
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.saveBtn:
-                //saving data to db
+                saveRecords();
                 break;
             case R.id.addBtn:
                 //creating custom dialog to add tasbeeh
@@ -83,6 +82,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void saveRecords() {
+        //displaying all buttons
+        saveBtn.setEnabled(false);
+        addBtn.setEnabled(false);
+        viewBtn.setEnabled(false);
+
+        //saving records
+        for(Record record:records){
+            if(record.getId()==-1){
+                //adding new tasbeeh
+//                dbHandler.addTasbeeh(record);
+            }else{
+                //updating tasbeeh
+//                dbHandler.updateTasbeeh(record);
+            }
+        }
+
+
+        //enable buttons
+        saveBtn.setEnabled(true);
+        addBtn.setEnabled(true);
+        viewBtn.setEnabled(true);
+    }
+
+    @SuppressLint("SimpleDateFormat")
     private void customDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.add_tasbeeh);
@@ -94,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setPositiveButton(R.string.add, (dialog, which) -> {
             //adding tasbeeh to arraylist if not empty
             if(!tasbeehName.getText().toString().trim().isEmpty()){
-                tasbeehNames.add(tasbeehName.getText().toString());
+                records.add(new Record(tasbeehName.getText().toString().trim(),false,0,new SimpleDateFormat("MMMM dd, yyyy").format(new Date())));
             }
 
         });

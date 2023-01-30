@@ -1,10 +1,11 @@
 package shahbaz4311.tasbeeh.utils;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,10 +18,10 @@ import shahbaz4311.tasbeeh.R;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordVH> {
 
-    List<String> tasbeehNames;
+    List<Record> records;
 
-    public RecordAdapter(List<String> tasbeehNames) {
-        this.tasbeehNames = tasbeehNames;
+    public RecordAdapter(List<Record> records) {
+        this.records = records;
     }
 
     @NonNull
@@ -32,22 +33,23 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordVH> 
 
     @Override
     public void onBindViewHolder(@NonNull RecordVH holder, int position) {
-        holder.tasbeehName = tasbeehNames.get(position);
-        holder.nameInput.setText(holder.tasbeehName);
-        holder.countInput.setText("");
+        holder.record = records.get(position);
+        holder.nameInput.setText(holder.record.getName());
+        holder.reciteInput.setChecked(holder.record.isRecited());
+        holder.countInput.setText(String.valueOf(holder.record.getCount()));
     }
 
     @Override
     public int getItemCount() {
-        return tasbeehNames.size();
+        return records.size();
     }
 
-    public class RecordVH extends RecyclerView.ViewHolder {
+    public static class RecordVH extends RecyclerView.ViewHolder {
         TextView nameInput;
         CheckBox reciteInput;
         EditText countInput;
 
-        String tasbeehName;
+        Record record;
 
         public RecordVH(@NonNull View itemView) {
             super(itemView);
@@ -57,8 +59,30 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordVH> 
 
             //setting checked listener on reciteInput to enable/disable counter
             reciteInput.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if(isChecked) countInput.setEnabled(true);
-                else countInput.setEnabled(false);
+                countInput.setEnabled(isChecked);
+                record.setRecited(isChecked);
+            });
+
+            //setting text changed listener on countInput to update count
+            countInput.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().isEmpty()) {
+                        record.setCount(0);
+                    } else {
+                        record.setCount(Integer.parseInt(s.toString()));
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
             });
 
 
