@@ -36,6 +36,7 @@ public class HistoryActivity extends AppCompatActivity {
         //initializing
         dbHandler=new DBHandler(HistoryActivity.this);
         tasbeeh_name=findViewById(R.id.tasbeeh_name);
+        tasbeeh_name.setText(tasbeehName);
         outputView=findViewById(R.id.outputView);
         outputView.setLayoutManager(new LinearLayoutManager(HistoryActivity.this));
         outputView.setHasFixedSize(true);

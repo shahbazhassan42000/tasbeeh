@@ -62,9 +62,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //setting inputRecycleView adapter
         inputView.setAdapter(recordAdapter);
+    }
 
-
-
+    //on back pressed
+    @Override
+    public void onBackPressed() {
+        //if records are empty
+        if(records.size()==0){
+            finish();
+            return;
+        }
+        //creating alert dialog
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Alert");
+        builder.setMessage("Do you want to save the tasbeeh records?");
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            saveRecords();
+            finish();
+        });
+        builder.setNegativeButton("No", (dialog, which) -> {
+            finish();
+        });
+        builder.show();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -117,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this,"Error while saving tasbeeh: "+records.get(i).getName(), Toast.LENGTH_SHORT).show();
             }
         }
+        Toast.makeText(MainActivity.this,"Records updated successfully", Toast.LENGTH_SHORT).show();
 
 
         //enable buttons
