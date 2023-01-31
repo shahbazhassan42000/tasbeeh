@@ -57,8 +57,7 @@
         tools:ignore="SmallSp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_weight="8"
         android:id="@+id/outputView"
         android:layout_width="match_parent"
-        android:layout_height="0sp" />
+        android:layout_height="match_parent" />
 </LinearLayout>

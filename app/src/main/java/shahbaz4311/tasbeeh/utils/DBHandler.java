@@ -71,9 +71,9 @@ public class DBHandler extends SQLiteOpenHelper {
         return id;
     }
 
-    public List<Record> getAllRecords() {
+    public List<Record> getAllTasbeehRecords(String tasbeehName) {
         List<Record> records = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABLE_NAME;
+        String sql = "SELECT * FROM " + TABLE_NAME +"WHERE " + COLUMN_NAME + " = '" + tasbeehName + "' ORDER BY " + COLUMN_DATE + " DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -85,7 +85,6 @@ public class DBHandler extends SQLiteOpenHelper {
                 @SuppressLint("Range") boolean isRecited = cursor.getInt(cursor.getColumnIndex(COLUMN_RECITED)) > 0;
                 @SuppressLint("Range") int count = cursor.getInt(cursor.getColumnIndex(COLUMN_COUNT));
                 records.add(new Record(id, name, isRecited, count, date));
-
             } while (cursor.moveToNext());
         }
         cursor.close();
