@@ -11,7 +11,7 @@
         android:layout_width="0sp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:paddingEnd="10sp"
         android:text="@string/date"
         tools:ignore="NestedWeights,RtlSymmetry" />
@@ -21,7 +21,7 @@
         android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10sp"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:paddingEnd="10sp"
         android:text="@string/recite"
         tools:ignore="RtlSymmetry" />
@@ -29,7 +29,7 @@
         android:id="@+id/counterOutput"
         android:layout_width="100sp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:text="@string/counter" />
 
 
